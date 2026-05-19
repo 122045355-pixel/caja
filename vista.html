@@ -35,10 +35,6 @@
             cursor: pointer;
         }
 
-        li{
-            margin-bottom: 10px;
-        }
-
     </style>
 </head>
 <body>
@@ -47,7 +43,7 @@
 
     <div class="contenedor">
 
-
+        
         <div class="modulo">
 
             <h2>Nuevo Pedido</h2>
@@ -60,24 +56,22 @@
 
             <input type="number" id="precio" placeholder="Precio">
 
-            <button onclick="agregarPedido()">
-                Agregar Pedido
+            <button onclick="guardarPedido()">
+            
             </button>
 
         </div>
 
 
-        <!-- MODULO LISTA PEDIDOS -->
+        <!-- MODULO LISTA -->
         <div class="modulo">
 
             <h2>Lista de Pedidos</h2>
 
-            <ul id="listaPedidos">
+            <ul id="listaPedidos"></ul>
 
-            </ul>
-
-            <h3 id="totalVentas">
-                Total Ventas: $0
+            <h3 id="ventasTotales">
+                Total ventas: $0
             </h3>
 
         </div>
@@ -85,16 +79,13 @@
     </div>
 
 
+   
+    <script src="caja.js"></script>
+
     <script>
 
-        let pedidos = [];
+        function guardarPedido(){
 
-        let gananciasTotales = 0;
-
-
-        function agregarPedido(){
-
-            // Obtener datos
             let cliente = document.getElementById("cliente").value;
 
             let producto = document.getElementById("producto").value;
@@ -104,50 +95,24 @@
             let precio = Number(document.getElementById("precio").value);
 
 
-            // Crear pedido
-            const pedido = {
-
-                cliente,
-                producto,
-                cantidad,
-                precio,
-                total: cantidad * precio
-
-            };
-
-
-      
-            pedidos.push(pedido);
-
-
             
-            gananciasTotales += pedido.total;
-
-
-            
-            let lista = document.getElementById("listaPedidos");
-
-            let nuevoPedido = document.createElement("li");
-
-            nuevoPedido.textContent =
-            `${cliente} - ${producto} - ${cantidad} x $${precio} = $${pedido.total}`;
-
-            lista.appendChild(nuevoPedido);
-
-
-        
-            document.getElementById("totalVentas").textContent =
-            `Total Ventas: $${gananciasTotales}`;
+            agregarPedido(cliente, producto, cantidad, precio);
 
 
            
-            document.getElementById("cliente").value = "";
+            let lista = document.getElementById("listaPedidos");
 
-            document.getElementById("producto").value = "";
+            let nuevo = document.createElement("li");
 
-            document.getElementById("cantidad").value = "";
+            nuevo.textContent =
+            `${cliente} - ${producto} - ${cantidad} x $${precio}`;
 
-            document.getElementById("precio").value = "";
+            lista.appendChild(nuevo);
+
+
+            
+            document.getElementById("ventasTotales").textContent =
+            `Total ventas: $${totalVentas}`;
 
         }
 
