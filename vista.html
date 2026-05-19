@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pedidos</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin: 30px;
+        }
+
+        .contenedor{
+            display: flex;
+            gap: 40px;
+        }
+
+        .modulo{
+            border: 1px solid black;
+            padding: 20px;
+            width: 300px;
+        }
+
+        input{
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        button{
+            width: 100%;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        li{
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Sistema de Gestión de Pedidos</h1>
+
+    <div class="contenedor">
+
+
+        <div class="modulo">
+
+            <h2>Nuevo Pedido</h2>
+
+            <input type="text" id="cliente" placeholder="Cliente">
+
+            <input type="text" id="producto" placeholder="Producto">
+
+            <input type="number" id="cantidad" placeholder="Cantidad">
+
+            <input type="number" id="precio" placeholder="Precio">
+
+            <button onclick="agregarPedido()">
+                Agregar Pedido
+            </button>
+
+        </div>
+
+
+        <!-- MODULO LISTA PEDIDOS -->
+        <div class="modulo">
+
+            <h2>Lista de Pedidos</h2>
+
+            <ul id="listaPedidos">
+
+            </ul>
+
+            <h3 id="totalVentas">
+                Total Ventas: $0
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let pedidos = [];
+
+        let gananciasTotales = 0;
+
+
+        function agregarPedido(){
+
+            // Obtener datos
+            let cliente = document.getElementById("cliente").value;
+
+            let producto = document.getElementById("producto").value;
+
+            let cantidad = Number(document.getElementById("cantidad").value);
+
+            let precio = Number(document.getElementById("precio").value);
+
+
+            // Crear pedido
+            const pedido = {
+
+                cliente,
+                producto,
+                cantidad,
+                precio,
+                total: cantidad * precio
+
+            };
+
+
+      
+            pedidos.push(pedido);
+
+
+            
+            gananciasTotales += pedido.total;
+
+
+            
+            let lista = document.getElementById("listaPedidos");
+
+            let nuevoPedido = document.createElement("li");
+
+            nuevoPedido.textContent =
+            `${cliente} - ${producto} - ${cantidad} x $${precio} = $${pedido.total}`;
+
+            lista.appendChild(nuevoPedido);
+
+
+        
+            document.getElementById("totalVentas").textContent =
+            `Total Ventas: $${gananciasTotales}`;
+
+
+           
+            document.getElementById("cliente").value = "";
+
+            document.getElementById("producto").value = "";
+
+            document.getElementById("cantidad").value = "";
+
+            document.getElementById("precio").value = "";
+
+        }
+
+    </script>
+
+</body>
+</html>
